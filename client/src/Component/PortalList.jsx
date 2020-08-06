@@ -83,7 +83,7 @@ export class PortalList extends Component {
     collectPostedJobList() {
         Axios({
             method: "GET",
-            url: "http://localhost:9000/portal/findAll",
+            url: "/portal/findAll",
             headers: {
                 "Content-Type": "application/json"
             }
@@ -99,7 +99,7 @@ export class PortalList extends Component {
             case 'Edit':
                 Axios({
                     method: "PUT",
-                    url: `http://localhost:9000/portal/update/${id}`,
+                    url: `/portal/update/${id}`,
                     data: {
                         "title": this.state.jobTitle,
                         "description": this.state.jobdescription,
@@ -137,7 +137,7 @@ export class PortalList extends Component {
             case 'ARCHIVE':
                 Axios({
                     method: "PUT",
-                    url: `http://localhost:9000/portal/update/${id}`,
+                    url: `/portal/update/${id}`,
                     data: {
                         "status": 'V'
                     },
@@ -170,7 +170,7 @@ export class PortalList extends Component {
             case 'DELETE':
                 Axios({
                     method: "DELETE",
-                    url: `http://localhost:9000/portal/delete/${id}`,
+                    url: `/portal/delete/${id}`,
                     headers: {
                         "Content-Type": "application/json"
                     }
@@ -237,7 +237,7 @@ export class PortalList extends Component {
         if (errors === undefined) {
             Axios({
                 method: "POST",
-                url: "http://localhost:9000/portal/addjobs",
+                url: "/portal/addjobs",
                 data: {
                     "title": this.state.jobTitle,
                     "description": this.state.jobdescription,
