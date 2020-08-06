@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config()
 const db=require('./routes/modal');
+var testAPIRouter = require('./routes/portal.routes');
+var cors = require("cors");
 
+const db=require('./routes/modal');
 const app = express();
 
 db.mongoose.connect(db.url, {useNewUrlParser: true,useUnifiedTopology: true},()=>console.log(`Enter into dbURL`))
@@ -14,6 +17,8 @@ db.mongoose.connect(db.url, {useNewUrlParser: true,useUnifiedTopology: true},()=
   });
 
 app.use(bodyParser.json());
+app.use(cors());
+app.use('/portal', testAPIRouter);
 
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
