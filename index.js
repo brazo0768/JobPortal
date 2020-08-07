@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-require('dotenv').config()
+/* require('dotenv').config() */
 var testAPIRouter = require('./routes/portal.routes');
 var cors = require("cors");
 
@@ -11,7 +11,7 @@ const db = require('./routes/modal');
 const app = express();
 
 
-db.mongoose.connect(process.env.MONGODB_URI || 
+db.mongoose.connect(
     db.url, { useNewUrlParser: true, useUnifiedTopology: true },
      () => console.log(`Enter into URL`))
   .then(() => { console.log("Connected to the database!"); })
