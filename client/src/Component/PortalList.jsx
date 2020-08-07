@@ -9,10 +9,7 @@ import validate from 'validate.js';
 import SimpleSnackbar from './SimpleSnackbar';
 import * as country from './CountryandCity.js'
 
-
-
-
-
+//Class for job portal
 
 export class PortalList extends Component {
 
@@ -37,22 +34,21 @@ export class PortalList extends Component {
             errors: {},
             cities: [],
             selectedcity: ''
-
-
-
         }
 
     }
+
+
 
     hasError(field) {
         return this.state.errors[field] ? true : false;
     }
 
     componentDidMount() {
-
-        this.collectPostedJobList()
+         this.collectPostedJobList()
     }
 
+    
     handlecityvalue = (sindex) => {
         const { cities } = this.state
         console.log(sindex)
@@ -80,10 +76,12 @@ export class PortalList extends Component {
         this.snackbarRef.current.handleClick(message, serverity);
     }
 
+
+    //To get the posted jobs
     collectPostedJobList() {
         Axios({
             method: "GET",
-            url: "/portal/findAll",
+            url: "/findAll",
             headers: {
                 "Content-Type": "application/json"
             }
@@ -96,10 +94,10 @@ export class PortalList extends Component {
         const { JobList } = this.state
         let tempList = JobList
         switch (mode) {
-            case 'Edit':
+            case 'Edit': //Update the jobs
                 Axios({
                     method: "PUT",
-                    url: `/portal/update/${id}`,
+                    url: `/update/${id}`,
                     data: {
                         "title": this.state.jobTitle,
                         "description": this.state.jobdescription,
@@ -134,10 +132,10 @@ export class PortalList extends Component {
                 });
                 break;
 
-            case 'ARCHIVE':
+            case 'ARCHIVE': //to maintain the history of archive
                 Axios({
                     method: "PUT",
-                    url: `/portal/update/${id}`,
+                    url: `/update/${id}`,
                     data: {
                         "status": 'V'
                     },
@@ -167,10 +165,10 @@ export class PortalList extends Component {
                 });
                 break;
 
-            case 'DELETE':
+            case 'DELETE': //delete the posted jobs
                 Axios({
                     method: "DELETE",
-                    url: `/portal/delete/${id}`,
+                    url: `/delete/${id}`,
                     headers: {
                         "Content-Type": "application/json"
                     }
@@ -202,24 +200,7 @@ export class PortalList extends Component {
         this.setState({ [name]: value })
     }
 
-    addJobinTable = () => {
-        const { JobList, jobModal } = this.state
-        let tempJobmodel = jobModal;
-        let tempJoblist = JobList;
-        tempJobmodel = {
-            "title": this.state.jobTitle,
-            "description": this.state.jobdescription,
-            "keywords": this.state.keywords,
-            "location": this.state.location,
-            "status": 'A'
-        }
-        tempJoblist.push(tempJobmodel)
-        this.setState({
-            JobList: tempJoblist
-        })
-        this.resetField()
-
-    }
+    
 
     resetField = () => {
         this.setState({
@@ -230,14 +211,16 @@ export class PortalList extends Component {
         })
     }
 
-    handlePost = () => {
+
+    //to post jobs 
+    handlePost = () => { 
         const { JobList } = this.state
         console.log(this.state.selectedcity)
         let errors = validate(this.state, schema)
         if (errors === undefined) {
             Axios({
                 method: "POST",
-                url: "/portal/addjobs",
+                url: "/addjobs",
                 data: {
                     "title": this.state.jobTitle,
                     "description": this.state.jobdescription,

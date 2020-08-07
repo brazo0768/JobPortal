@@ -18,7 +18,7 @@
     "react-scripts": "3.4.1",
     "validate.js": "^0.13.1"
   },
-  "proxy": "http://localhost:9000",
+  "proxy": "http://localhost:9000/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
