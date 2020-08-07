@@ -11,7 +11,9 @@ const db = require('./routes/modal');
 const app = express();
 
 
-db.mongoose.connect(db.url, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log(db.url))
+db.mongoose.connect(process.env.MONGODB_URI || 
+    db.url, { useNewUrlParser: true, useUnifiedTopology: true },
+     () => console.log(`Enter into URL`))
   .then(() => { console.log("Connected to the database!"); })
   .catch(err => {
     console.log("Cannot connect to the database!", err);
